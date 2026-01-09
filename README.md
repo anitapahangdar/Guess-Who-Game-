@@ -44,6 +44,3 @@ A Java implementation of the classic **"Guess Who"** game featuring a **graphica
 - Make sure your IDE recognizes the project as a **Java project** with the correct build path.
 
 ---
-
-## 📂 Project Structure
-
