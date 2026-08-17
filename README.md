@@ -1,46 +1,88 @@
-# Guess Who – Java GUI Game
+# Guess Who — Java Swing Game
 
-A Java implementation of the classic **"Guess Who"** game featuring a **graphical user interface (GUI)**. Players select characters, ask yes/no questions, and eliminate suspects to guess the opponent’s character, playing against an AI opponent.
+A desktop guessing game built in Java with Swing. The player chooses a character, asks questions about the computer's hidden character, eliminates candidates, and makes a final guess before the five-minute timer expires.
 
----
+This repository contains a collaborative school project by **Arshia, Anita, Oliver, and Daniel**. The repository is maintained by **Anita Pahangdar**.
 
-## Gameplay Overview
+## Highlights
 
-1. Select your character by clicking on their image.  
-2. Use the dropdown menu to ask questions about the opponent’s character.  
-3. Characters that don’t match the answer are eliminated automatically.  
-4. The AI takes its turn automatically after each player action.  
-5. The game continues until one player correctly guesses the opponent’s character.
+- 24-character game board
+- Seven character-attribute questions
+- Random computer character selection
+- Manual candidate elimination
+- Five-minute countdown timer
+- Optional character artwork and sound effects
+- Text-based fallbacks when optional media assets are not installed
+- Separation between the Swing interface and game logic
 
----
+## Technology
 
-## How to Run
+- Java
+- Java Swing and AWT
+- Java Collections
+- Java Sound API
+- Object-oriented design
 
-1. **Download** the `GuessWhoGroupA` folder.  
-2. **Open Eclipse** (or another Java IDE).  
-3. Click **File → Open Project From File System**.  
-4. In the **Import Source** area, click **Directory** and navigate to the downloaded folder.  
-5. Click **Finish** to import the project.  
-6. Run the `Main.java` file (or `GameBoardGUI.java`) to start the game.
+## Project structure
 
----
+```text
+.
+├── gui/
+│   └── GameBoardGUI.java   # Swing interface and player interactions
+├── logic/
+│   └── GameLogic.java      # Characters, attributes, questions, and game state
+├── main/
+│   └── GuessWho.java       # Application entry point
+└── README.md
+```
 
-## Technical Details
+## Run locally
 
-- **Language:** Java  
-- **GUI:** Swing  
-- **Features:**  
-  - Interactive dropdown menu for questions  
-  - Automatic AI opponent  
-  - Dynamic elimination of characters  
-- **Assets:** All character images stored in the `images` folder.
+### Requirements
 
----
+Install a Java Development Kit (JDK) 8 or newer and confirm that `java` and `javac` are available in your terminal.
 
-## Troubleshooting
+### Command line
 
-- Ensure **all `.java` files and image files** are in the correct directories.  
-- Verify that image file paths in `GameBoardGUI.java` match the `images` folder.  
-- Make sure your IDE recognizes the project as a **Java project** with the correct build path.
+From the repository root:
 
----
+```bash
+javac -d out main/GuessWho.java gui/GameBoardGUI.java logic/GameLogic.java
+java -cp out main.GuessWho
+```
+
+On Windows PowerShell, the same commands work as written.
+
+You can also import the repository into IntelliJ IDEA, Eclipse, or VS Code and run `main.GuessWho`.
+
+## How to play
+
+1. Select your character from the board.
+2. Enter a question number and choose **Ask** to learn about the computer's character.
+3. Click character cards to mark unlikely candidates as eliminated.
+4. Choose **Guess Character**, enter a name, and submit your final guess.
+5. Make your guess before the timer reaches zero.
+
+## Optional media assets
+
+The source supports character images in an `images/` directory and WAV audio in `src/sounds/`. Those media files are not included in this repository. The application therefore displays character names as buttons and runs without audio by default.
+
+If you add your own appropriately licensed assets, use the filenames referenced in `gui/GameBoardGUI.java`.
+
+## Current scope
+
+This version demonstrates a playable player-versus-computer guessing flow. The computer selects a hidden character and answers questions from the stored attribute data. Automated computer questioning and turn-taking exist in the logic layer but are not yet connected to the Swing interface.
+
+## Possible next steps
+
+- Connect the computer's questioning logic to the interface
+- Add unit tests for character filtering and win conditions
+- Package the application as an executable JAR
+- Replace local file paths with classpath resources
+- Add original, appropriately licensed character artwork
+
+## Credits
+
+Created as a collaborative school project by **Arshia, Anita, Oliver, and Daniel** on January 17, 2025.
+
+Repository presentation and ongoing maintenance: **Anita Pahangdar**.
