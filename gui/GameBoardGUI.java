@@ -118,11 +118,20 @@ public class GameBoardGUI {
     
     //this method will add the characters images onto the buttons.
     private JButton createCharacterButton(String[] character) throws IOException {
-        ImageIcon icon = new ImageIcon(character[0]);
-        Image scaledImage = icon.getImage().getScaledInstance(125, 150, Image.SCALE_SMOOTH);
-        icon = new ImageIcon(scaledImage);
+        File imageFile = new File(character[0]);
+        JButton button;
 
-        JButton button = new JButton(icon);
+        if (imageFile.isFile()) {
+            ImageIcon icon = new ImageIcon(character[0]);
+            Image scaledImage = icon.getImage().getScaledInstance(125, 150, Image.SCALE_SMOOTH);
+            button = new JButton(new ImageIcon(scaledImage));
+        } else {
+            // Keep the game playable when optional character artwork is unavailable.
+            button = new JButton(character[1]);
+            button.setForeground(Color.WHITE);
+        }
+
+        button.setPreferredSize(new Dimension(125, 150));
         button.setBackground(Color.DARK_GRAY);
         button.setOpaque(true);
         button.setBorderPainted(false);
@@ -144,15 +153,17 @@ public class GameBoardGUI {
     
     //after deciding which characters to exclude, clicking the button will replace them with an x to show that they dont count.
     private void disableCharacterButton(JFrame frame, JButton button) {
-        try {
-            ImageIcon xIcon = new ImageIcon("images/x.png");
+        File xImageFile = new File("images/x.png");
+        if (xImageFile.isFile()) {
+            ImageIcon xIcon = new ImageIcon(xImageFile.getPath());
             Image xScaledImage = xIcon.getImage().getScaledInstance(125, 150, Image.SCALE_SMOOTH);
             button.setIcon(new ImageIcon(xScaledImage));
-            button.setToolTipText("Character eliminated");
-            button.setEnabled(false);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(frame, "Error loading 'X' image.");
+        } else {
+            button.setIcon(null);
+            button.setText("Eliminated");
         }
+        button.setToolTipText("Character eliminated");
+        button.setEnabled(false);
     }
     
     //this right panel contains the timer, the questions, the guess character button, and the ask button. basically everything other than the characters
@@ -306,6 +317,9 @@ public class GameBoardGUI {
     private void playBackgroundMusic(String filePath) {
         try {
             File audioFile = new File(filePath);
+            if (!audioFile.isFile()) {
+                return;
+            }
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
             Clip clip = AudioSystem.getClip();
             clip.open(audioStream);
@@ -320,6 +334,9 @@ public class GameBoardGUI {
     private void playSoundEffect(String filePath) {
         try {
             File audioFile = new File(filePath);
+            if (!audioFile.isFile()) {
+                return;
+            }
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
             Clip clip = AudioSystem.getClip();
             clip.open(audioStream);
